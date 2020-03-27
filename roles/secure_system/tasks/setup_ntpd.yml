@@ -1,0 +1,22 @@
+- name: Install openntpd/ntp
+  become: yes
+  apt:
+    name: "{{ ntp_package }}"
+    state: present
+
+- name: Set ntp config directory var
+  set_fact: 
+    ntp_config_path: "{% if ntp_package == 'openntpd' %}/etc/openntpd/ntpd.conf\
+      {% else %}/etc/ntpd.conf\
+      {% endif %}"
+
+- name: Add ntpd.conf
+  become: yes
+  lineinfile:
+    dest: "{{ ntp_config_path }}"
+    regexp: "{{ item }}"
+    line: "{{ ntp_settings[item] }}"
+    state: present
+  with_items: "{{ ntp_settings | list }}"
+  notify:
+    - restart ntpd

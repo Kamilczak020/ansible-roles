@@ -1,0 +1,54 @@
+- name: Install sudo
+  apt: 
+    name: sudo
+    state: present
+
+- name: Make sure 'wheel' group exists
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: "^%wheel"
+    line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+    validate: "/usr/sbin/visudo -cf %s"
+
+- name: Create users with sudo priviledges
+  user:
+    name: "{{ item.username }}"
+    state: present
+    groups: wheel
+    append: true
+    create_home: true
+    shell: /bin/bash
+  with_items: "{{ system_users }}"
+
+- name: Set authorized keys for users
+  authorized_key:
+    user: "{{ item.username }}"
+    state: present
+    key: "{{ item.public_key }}"
+  with_items: "{{ system_users }}"
+
+- name: Disable password authentication for root
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin prohibit-password"
+    validate: "/usr/sbin/sshd -tf %s"
+  notify:
+    - restart sshd
+
+- name: Set allowed users
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^#?AllowUsers"
+    line: "AllowUsers {{ system_users | map(attribute='username') | join(' ') }}"
+    validate: "/usr/sbin/sshd -tf %s"
+  notify:
+    - restart sshd

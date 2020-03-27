@@ -1,0 +1,12 @@
+- name: Add kubernetes GPG key for the kubernetes repository
+  become: yes
+  apt_key:
+    url: "{{ kubernetes_repository_key }}"
+    state: present
+
+- name: Add kubernetes repository to apt
+  become: yes
+  apt_repository:
+    repo: "{{ kubernetes_repository }}"
+    state: present
+

@@ -1,0 +1,25 @@
+kubernetes_repository: "deb [arch=amd64] https://apt.kubernetes.io/ kubernetes-xenial main"
+
+kubernetes_repository_key: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+
+system_user: greenchill
+
+# Settings required to get our k8s going
+ufw_defaults:
+  "^DEFAULT_FORWARD_POLICY": 'DEFAULT_FORWARD_POLICY="ACCEPT"'
+
+ufw_rules:
+  - rule: allow
+    to_port: 179
+    proto: tcp
+  - rule: allow
+    to_port: 10250
+    proto: tcp
+  - rule: allow
+    to_port: 30000:32767
+    proto: tcp
+
+sysctl_settings:
+  "net.ipv4.ip_forward": 1
+  "net.ipv6.conf.default.forwarding": 1
+  "net.ipv6.conf.all.forwarding": 1

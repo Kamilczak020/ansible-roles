@@ -1,0 +1,9 @@
+- name: Adjust apt update intervals
+  become: yes
+  copy:
+    src: /etc/apt/apt.conf.d/10periodic
+    dest: /etc/apt/apt.conf.d/10periodic
+    owner: root
+    group: root
+    mode: 0644
+    

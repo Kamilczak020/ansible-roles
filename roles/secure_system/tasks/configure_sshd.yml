@@ -1,0 +1,11 @@
+- name: Apply sshd settings
+  become: yes
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "{{ item }}"
+    line: "{{ sshd_settings[item] }}"
+    state: present
+    validate: "/usr/sbin/sshd -tf %s"
+  with_items: "{{ sshd_settings | list }}"
+  notify:
+    - restart sshd

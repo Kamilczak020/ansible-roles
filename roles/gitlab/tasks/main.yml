@@ -1,0 +1,41 @@
+- name: Create namespace
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.j2') }}"
+
+- name: Create rbac
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'rbac.j2') }}"
+
+- name: Create token
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'token.j2') }}"
+
+- name: Create register script
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'register.j2') }}"
+
+- name: Create configmap
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'configmap.j2') }}"
+
+- name: Create statefulset
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'statefulset.j2') }}"

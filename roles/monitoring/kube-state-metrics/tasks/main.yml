@@ -1,0 +1,34 @@
+- name: Create cluster role
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'cluster-role.j2') }}"
+
+- name: Create cluster role binding
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'cluster-role-binding.j2') }}"
+
+- name: Create service account
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'service-account.j2') }}"
+
+- name: Create deployment
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'deployment.j2') }}"
+
+- name: Expose as service
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'service.j2') }}"

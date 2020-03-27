@@ -1,0 +1,4 @@
+- import_tasks: upgrade.yml
+- import_tasks: install_packages.yml
+- import_tasks: setup_floating_ip.yml
+- import_tasks: setup_users.yml

@@ -1,0 +1,6 @@
+- name: Create namespace
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.j2') }}"

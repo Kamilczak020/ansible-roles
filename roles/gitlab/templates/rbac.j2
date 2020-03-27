@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gitlab-ci
+  namespace: {{ gitlab_runner_namespace }}
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: {{ gitlab_runner_namespace }}
+  name: gitlab-ci
+rules:
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: gitlab-ci
+  namespace: {{ gitlab_runner_namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: gitlab-ci
+    namespace: {{ gitlab_runner_namespace }}
+roleRef:
+  kind: Role
+  name: gitlab-ci
+  apiGroup: rbac.authorization.k8s.io

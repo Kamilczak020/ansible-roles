@@ -1,0 +1,8 @@
+ufw_defaults_user:
+  "^DEFAULT_FORWARD_POLICY": 'DEFAULT_FORWARD_POLICY="ACCEPT"'
+
+# Settings required to get our k8s going
+sysctl_settings_user:
+  "net.ipv4.ip_forward": 1
+  "net.ipv6.conf.default.forwarding": 1
+  "net.ipv6.conf.all.forwarding": 1

@@ -1,0 +1,19 @@
+- name: Install kubelet
+  become: yes
+  apt:
+    name: kubelet
+    state: present
+    update_cache: true
+
+- name: Install kubeadm
+  become: yes
+  apt:
+    name: kubeadm
+    state: present
+
+- name: Install kubectl
+  become: yes
+  apt:
+    name: kubectl
+    state: present
+    force: yes

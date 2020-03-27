@@ -1,0 +1,17 @@
+- name: Setup docker daemon
+  become: yes
+  template:
+    src: docker-daemon.j2
+    dest: /etc/docker/daemon.json
+  notify:
+    - restart docker
+
+- name: Create systemd directory for docker
+  become: yes
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes

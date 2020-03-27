@@ -1,0 +1,29 @@
+- hosts: all
+  roles:
+    - role: config_system
+      tags: role-config-system
+    - role: secure_system
+      tags: role-secure-system
+    - role: docker
+      tags: role-docker
+    - role: openshift
+      tags: role-openshift
+
+- hosts: masters
+  environment: "{{ kube_config_path }}"
+  roles:
+    - role: kubernetes/masters
+      tags: role-kubernetes-masters
+    - role: gitlab
+      tags: role-gitlab
+    - role: monitoring/prometheus
+      tags: role-monitoring-prometheus
+    - role: monitoring/kube-state-metrics
+      tags: role-monitoring-kube-state-metrics
+    - role: monitoring/grafana
+      tags: role-monitoring-grafana
+
+- hosts: workers
+  roles:
+    - role: kubernetes/workers
+      tags: role-kubernetes-workers

@@ -1,0 +1,6 @@
+- import_tasks: disable_swap.yml
+- import_tasks: fetch_kube.yml
+- import_tasks: install_kube.yml
+- import_tasks: config_kube.yml
+- import_tasks: config_ufw.yml
+- import_tasks: config_sysctl.yml

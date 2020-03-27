@@ -1,0 +1,9 @@
+# Name of the k8s monitoring namespace
+monitoring_namespace: monitoring
+
+# Grafana image from dockerhub. Check at:
+# https://hub.docker.com/r/grafana/grafana/tags
+grafana_image: grafana/grafana:latest
+
+# Node port on which the grafana dashboard is exposed
+grafana_port: 32000

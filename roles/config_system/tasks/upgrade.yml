@@ -1,0 +1,11 @@
+- name: Update apt
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+    force_apt_get: yes

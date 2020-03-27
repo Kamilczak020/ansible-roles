@@ -1,0 +1,16 @@
+- name: restart sshd
+  become: yes
+  shell: sleep 3; systemctl restart sshd
+  async: 1
+  poll: 0
+
+- name: restart ntpd
+  become: yes
+  service:
+    name: "{{ ntp_package }}"
+    state: restarted
+
+- name: reload ufw
+  become: yes 
+  ufw:
+    state: reloaded

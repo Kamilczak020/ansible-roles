@@ -1,0 +1,7 @@
+ansible_user: ansible
+ansible_ssh_private_key_file: ~/.ssh/ansible_rsa
+
+system_user: greenchill
+
+kube_config_path:
+  K8S_AUTH_KUBECONFIG: "/home/{{ system_user }}/.kube/config"

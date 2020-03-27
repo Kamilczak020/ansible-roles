@@ -1,0 +1,32 @@
+apiVersion: v1
+data:
+  REGISTER_NON_INTERACTIVE: "true"
+  REGISTER_LOCKED: "false"
+  CI_SERVER_URL: "{{ gitlab_runner_server_url }}"
+  METRICS_SERVER: "0.0.0.0:9100"
+  RUNNER_REQUEST_CONCURRENCY: "{{ gitlab_runner_request_concurrency }}"
+  RUNNER_EXECUTOR: "kubernetes"
+  KUBERNETES_NAMESPACE: "{{ gitlab_runner_namespace }}"
+  KUBERNETES_PRIVILEGED: "true"
+  KUBERNETES_CPU_REQUEST: "{{ gitlab_runner_cpu_request }}"
+  KUBERNETES_MEMORY_REQUEST: "{{ gitlab_runner_memory_request }}"
+  KUBERNETES_CPU_LIMIT: "{{ gitlab_runner_cpu_limit }}"
+  KUBERNETES_MEMORY_LIMIT: "{{ gitlab_runner_memory_limit }}"
+  KUBERNETES_SERVICE_CPU_REQUEST: "{{ gitlab_runner_service_cpu_request }}"
+  KUBERNETES_SERVICE_MEMORY_REQUEST: "{{ gitlab_runner_service_memory_request }}"
+  KUBERNETES_SERVICE_CPU_LIMIT: "{{ gitlab_runner_service_cpu_limit }}"
+  KUBERNETES_SERVICE_MEMORY_LIMIT: "{{ gitlab_runner_service_memory_limit }}"
+  KUBERNETES_HELPER_CPU_REQUEST: "{{ gitlab_runner_helper_cpu_request }}"
+  KUBERNETES_HELPER_MEMORY_REQUEST: "{{ gitlab_runner_helper_memory_request }}"
+  KUBERNETES_HELPER_CPU_LIMIT: "{{ gitlab_runner_helper_cpu_limit }}"
+  KUBERNETES_HELPER_MEMORY_LIMIT: "{{ gitlab_runner_helper_memory_limit }}"
+  KUBERNETES_PULL_POLICY: "{{ gitlab_runner_pull_policy }}"
+  KUBERNETES_TERMINATIONGRACEPERIODSECONDS: "10"
+  KUBERNETES_POLL_INTERVAL: "5"
+  KUBERNETES_POLL_TIMEOUT: "360"
+kind: ConfigMap
+metadata:
+  labels:
+    app: gitlab-ci-runner
+  name: gitlab-ci-runner-cm
+  namespace: {{ gitlab_runner_namespace }}

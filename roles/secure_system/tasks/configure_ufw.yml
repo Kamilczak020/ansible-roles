@@ -1,0 +1,47 @@
+- name: Combine default vars
+  set_fact:
+    ufw_defaults: "{{ ufw_defaults | combine(ufw_defaults_user) }}"
+  when: ufw_defaults_user is defined
+
+- name: Configure ufw defaults
+  become: yes
+  lineinfile: 
+    dest: /etc/default/ufw
+    regexp: "{{ item }}"
+    line: "{{ ufw_defaults[item] }}"
+    state: present
+  with_items: "{{ ufw_defaults }}"
+  notify:
+    - reload ufw
+
+- name: Apply firewall rules
+  become: yes
+  ufw:
+    rule: "{{ item.rule }}"
+    interface: "{{ item.interface | default('') }}"
+    direction: "{{ item.direction | default('in') }}"
+    from_ip: "{{ item.from_ip | default('any') }}"
+    to_ip: "{{ item.to_ip | default('any') }}"
+    from_port: "{{ item.from_port | default('') }}"
+    to_port: "{{ item.to_port | default('') }}"
+    proto: "{{ item.proto | default('any') }}"
+    log: "{{ item.log | default(False) }}"
+  with_items: "{{ ufw_rules }}"
+
+- name: Allow configured networks to communicate
+  become: yes
+  ufw:
+    rule: allow
+    src: "{{ item }}"
+  with_items: "{{ ufw_allow_networks }}"
+  when: ufw_allow_networks is defined
+
+- name: Setup logging
+  become: yes
+  ufw:
+    logging: "{{ ufw_logging }}"
+
+- name: Enable ufw
+  become: yes
+  ufw:
+    state: enabled

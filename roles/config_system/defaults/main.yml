@@ -1,0 +1,11 @@
+system_users:
+  - username: greenchill
+    public_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/greenchill_rsa.pub') }}"
+  - username: ansible
+    public_key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/ansible_rsa.pub') }}" 
+
+system_packages:
+  - curl
+  - vim
+  - git
+  - ufw

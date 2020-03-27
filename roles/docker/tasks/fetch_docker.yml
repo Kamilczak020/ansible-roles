@@ -1,0 +1,15 @@
+- name: Add system release version (bionic, xenial, etc.) to variables
+  shell: echo $(lsb_release -cs)
+  register: system_version_output
+
+- name: Fetch GPG key for the docker repository
+  become: yes
+  apt_key:
+    url: "{{ docker_repository_key }}"
+    state: present
+
+- name: Add docker repository to apt
+  become: yes
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ system_version_output.stdout }} stable"
+    state: present

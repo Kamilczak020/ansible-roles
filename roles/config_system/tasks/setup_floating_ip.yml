@@ -1,0 +1,7 @@
+- name: Add floating IP to the network interface
+  blockinfile:
+    dest: /etc/network/interfaces
+    content: "{{ lookup('template', 'interfaces-template.j2') }}"
+    state: present
+  notify:
+    - restart networking

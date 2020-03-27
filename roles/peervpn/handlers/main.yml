@@ -1,0 +1,4 @@
+- name: restart peervpn
+  service:
+    name: peervpn
+    state: restarted

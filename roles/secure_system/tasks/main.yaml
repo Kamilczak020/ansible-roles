@@ -1,0 +1,7 @@
+- import_tasks: install_packages.yml
+- import_tasks: configure_apt.yml
+- import_tasks: setup_ntpd.yml
+- import_tasks: configure_sshd.yml
+- import_tasks: configure_sysctl.yml
+- import_tasks: configure_ufw.yml
+- import_tasks: configure_sshguard.yml

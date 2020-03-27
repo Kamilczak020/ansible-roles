@@ -1,0 +1,12 @@
+- name: Install dependencies
+  become: yes
+  apt:
+    name: "{{ docker_prerequisites }}"
+    state: present
+    update_cache: yes
+
+- name: Install docker
+  become: yes
+  apt:
+    name: "{{ docker_packages }}"
+    update_cache: yes

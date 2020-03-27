@@ -1,0 +1,11 @@
+- name: Get status of ufw service
+  stat:
+    path: /etc/init.d/ufw
+  register: ufw_status
+
+- name: Configure ufw for peervpn
+  ufw:
+    rule: allow
+    to_port: "{{ peervpn_conf_port }}"
+    protocol: udp
+  when: ufw_status.stat.exists

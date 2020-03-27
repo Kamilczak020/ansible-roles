@@ -1,0 +1,10 @@
+# Name of the k8s monitoring namespace
+monitoring_namespace: monitoring
+
+# Current images as of 2020-03-27.
+# Please check the current versions at:
+# - https://hub.docker.com/r/prom/prometheus
+prometheus_image: prom/prometheus:v2.17.1
+
+# Node port on which the prometheus dashboard is exposed
+prometheus_port: 30000

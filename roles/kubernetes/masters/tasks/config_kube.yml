@@ -1,0 +1,38 @@
+- name: Initialize the cluster
+  become: yes
+  shell: "kubeadm init --pod-network-cidr={{ pod_network_cidr }}"
+
+- name: Create .kube directory
+  become: yes
+  become_user: "{{ system_user }}"
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: Create user directory to hold deployments
+  become: yes
+  become_user: "{{ system_user }}"
+  file:
+    path: "$HOME/kubernetes"
+    state: directory
+
+- name: Copy admin.conf to user's kube config
+  become: yes
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: "/home/{{ system_user }}/.kube/config"
+    remote_src: yes
+    owner: "{{ system_user }}"
+
+- name: Create a calico template file
+  become: yes
+  become_user: "{{ system_user }}"
+  template: 
+    src: calico-template.j2
+    dest: "$HOME/kubernetes/calico.yml"
+
+- name: Install container CNI
+  become: yes
+  become_user: "{{ system_user }}"
+  shell: kubectl apply -f $HOME/kubernetes/calico.yml

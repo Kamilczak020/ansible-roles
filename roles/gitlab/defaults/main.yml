@@ -1,0 +1,27 @@
+# When self hosted, use your own gitlab URL. 
+# Otherwise, use https://gitlab.com/
+gitlab_runner_server_url: https://gitlab.com/
+
+# Namespace in which the gitlab runner should exist
+gitlab_runner_namespace: gitlab-ci
+
+# Runner image from dockerhub. Check at:
+# https://hub.docker.com/r/gitlab/gitlab-runner/tags
+gitlab_runner_image: gitlab/gitlab-runner:v12.9.0
+
+# Configmap variables for runners
+gitlab_runner_request_concurrency: 2
+gitlab_runner_cpu_request: 500m
+gitlab_runner_memory_request: 512Mi
+gitlab_runner_cpu_limit: 1
+gitlab_runner_memory_limit: 1Gi
+gitlab_runner_service_cpu_request: 125m
+gitlab_runner_service_memory_request: 256Mi
+gitlab_runner_service_cpu_limit: 500m
+gitlab_runner_service_memory_limit: 1Gi
+gitlab_runner_helper_cpu_request: 150m
+gitlab_runner_helper_memory_request: 100Mi
+gitlab_runner_helper_cpu_limit: 500m
+gitlab_runner_helper_memory_limit: 200Mi
+
+gitlab_runner_pull_policy: if-not-present

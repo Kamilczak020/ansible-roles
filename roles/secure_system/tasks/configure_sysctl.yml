@@ -1,0 +1,12 @@
+- name: Combine sysctl vars
+  set_fact:
+    sysctl_settings: "{{ sysctl_settings | combine(sysctl_settings_user) }}"
+  when: sysctl_settings_user is defined
+
+- name: Apply sysctl settings
+  become: yes
+  sysctl:
+    name: "{{ item }}"
+    value: "{{ sysctl_settings[item] }}"
+    sysctl_set: yes
+  with_items: "{{ sysctl_settings | list }}"

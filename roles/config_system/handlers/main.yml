@@ -1,0 +1,9 @@
+- name: restart sshd
+  shell: sleep 3; systemctl restart sshd
+  async: 1
+  poll: 0
+
+- name: restart networking
+  systemd:
+    name: networking
+    state: restarted

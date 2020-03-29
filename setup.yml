@@ -22,6 +22,8 @@
       tags: role-monitoring-kube-state-metrics
     - role: monitoring/grafana
       tags: role-monitoring-grafana
+    - role: networking/nginx-ingress
+      tags: role-networking-nginx-ingress
 
 - hosts: workers
   roles:

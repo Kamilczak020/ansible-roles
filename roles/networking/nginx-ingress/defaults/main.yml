@@ -1,0 +1,9 @@
+# MetalLB namespace for deploying the configmap
+metallb_namespace: metallb-system
+
+# Nginx Ingress image from dockerhub. Check at:
+# https://quay.io/repository/kubernetes-ingress-controller/nginx-ingress-controller?tab=tags
+nginx_ingress_image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.30.0
+
+nodeport_http: 31000
+nodeport_https: 31001

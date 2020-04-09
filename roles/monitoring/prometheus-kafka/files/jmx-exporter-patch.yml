@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka
+  namespace: kafka
+spec:
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5556"
+    spec:
+      containers:
+      - name: metrics
+        image: solsson/kafka-prometheus-jmx-exporter@sha256:d237a12cc0cde42b539bcb5efc0008ba5e6ca1351b7843ed52bd574d181c5efd
+        command:
+        - java
+        - -jar
+        - jmx_prometheus_httpserver.jar
+        - "5556"
+        - /etc/jmx-kafka/jmx-kafka-prometheus.yml
+        ports:
+        - containerPort: 5556
+        resources:
+          requests:
+            cpu: 0m
+            memory: 60Mi
+          limits:
+            memory: 120Mi
+        volumeMounts:
+        - name: jmx-config
+          mountPath: /etc/jmx-kafka
+      volumes:
+      - name: jmx-config
+        configMap:
+          name: jmx-config

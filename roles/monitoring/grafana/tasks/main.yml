@@ -5,6 +5,13 @@
     state: present
     definition: "{{ lookup('template', 'datasource-config.j2') }}"
 
+- name: Create grafana root config
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'root-config.j2') }}"
+
 - name: Create deployment
   become: yes
   become_user: "{{ system_user }}"
@@ -19,9 +26,9 @@
     state: present
     definition: "{{ lookup('template', 'service.j2') }}"
 
-- name: Enable dashboard port on ufw
+- name: Create ingress for ingress-nginx
   become: yes
-  ufw:
-    rule: allow
-    proto: tcp
-    to_port: "{{ grafana_port }}"
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'ingress.j2') }}"

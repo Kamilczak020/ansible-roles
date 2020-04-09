@@ -8,10 +8,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
-  - host: personal.omnireborn.io
+  - host: {{ grafana_host }}
     http:
       paths:
-      - path: /grafana(/|$)(.*)
+      - path: /grafana(/)?(.*)
         backend:
           serviceName: grafana
           servicePort: 3000

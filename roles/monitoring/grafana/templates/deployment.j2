@@ -24,7 +24,7 @@ spec:
           limits:
             memory: "2Gi"
             cpu: "1000m"
-          requests: 
+          requests:
             memory: "1Gi"
             cpu: "500m"
         volumeMounts:
@@ -33,6 +33,9 @@ spec:
           - mountPath: /etc/grafana/provisioning/datasources
             name: grafana-datasources
             readOnly: false
+        env:
+          - name: GF_SERVER_ROOT_URL
+            value: "http://{{ grafana_host }}/grafana"
       volumes:
         - name: grafana-storage
           emptyDir: {}

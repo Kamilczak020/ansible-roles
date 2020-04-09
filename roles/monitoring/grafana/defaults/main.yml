@@ -5,5 +5,5 @@ monitoring_namespace: monitoring
 # https://hub.docker.com/r/grafana/grafana/tags
 grafana_image: grafana/grafana:latest
 
-# Node port on which the grafana dashboard is exposed
-grafana_port: 32000
+# Host on which grafana is deployed
+grafana_host: personal.omnireborn.io

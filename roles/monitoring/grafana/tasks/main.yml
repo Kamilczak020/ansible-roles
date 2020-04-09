@@ -5,13 +5,6 @@
     state: present
     definition: "{{ lookup('template', 'datasource-config.j2') }}"
 
-- name: Create grafana root config
-  become: yes
-  become_user: "{{ system_user }}"
-  k8s:
-    state: present
-    definition: "{{ lookup('template', 'root-config.j2') }}"
-
 - name: Create deployment
   become: yes
   become_user: "{{ system_user }}"

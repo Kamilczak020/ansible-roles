@@ -39,17 +39,3 @@
   k8s:
     state: present
     definition: "{{ lookup('template', 'service.j2') }}"
-
-- name: Enable ufw ports for HTTP
-  become: yes
-  ufw:
-    rule: allow
-    port: "{{ nodeport_http }}"
-    proto: tcp
-
-- name: Enable ufw ports for HTTPS
-  become: yes
-  ufw:
-    rule: allow
-    port: "{{ nodeport_https }}"
-    proto: tcp

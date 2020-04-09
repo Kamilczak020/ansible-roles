@@ -1,0 +1,83 @@
+- name: Create namespace
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'namespace.yml') }}"
+
+- name: Create rbac
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'rbac.yml') }}"
+
+- name: Create zookeeper configmap
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'zookeeper/configmap.yml') }}"
+
+- name: Create pzoo-service
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'zookeeper/pzoo-service.yml') }}"
+
+- name: Create zoo-service
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'zookeeper/zoo-service.yml') }}"
+
+- name: Create zookeeper service
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'zookeeper/service.yml') }}"
+
+- name: Create pzoo statefulset
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'zookeeper/pzoo.yml') }}"
+
+- name: Create zoo statefulset
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'zookeeper/zoo.yml') }}"
+
+- name: Create kafka configmap
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'kafka/configmap.yml') }}"
+
+- name: Create kafka dns
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'kafka/dns.yml') }}"
+
+- name: Bootstrap kafka
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'kafka/bootstrap.yml') }}"
+
+- name: Create kafka statefulset
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: "{{ deployment_state }}"
+    definition: "{{ lookup('file', 'kafka/statefulset.yml') }}"

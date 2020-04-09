@@ -14,6 +14,8 @@
   roles:
     - role: kubernetes/masters
       tags: role-kubernetes-masters
+    - role: scaleway-csi
+      tags: role-scaleway-csi
     - role: gitlab
       tags: role-gitlab
     - role: monitoring/prometheus
@@ -24,6 +26,8 @@
       tags: role-monitoring-grafana
     - role: networking/nginx-ingress
       tags: role-networking-nginx-ingress
+    - role: kafka
+      tags: role-kafka
 
 - hosts: workers
   roles:

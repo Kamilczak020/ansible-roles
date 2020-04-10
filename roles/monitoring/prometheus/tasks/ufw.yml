@@ -1,6 +1,0 @@
-- name: Configure ufw for prometheus
-  become: yes
-  ufw:
-    rule: allow
-    proto: tcp
-    to_port: "{{ prometheus_port }}"

@@ -9,8 +9,7 @@ metadata:
 spec:
   selector: 
     app: prometheus-server
-  type: NodePort  
   ports:
-    - port: 8080
-      targetPort: 9090 
-      nodePort: {{ prometheus_port }}
+    - protocol: TCP
+      port: 8080
+      targetPort: 9090

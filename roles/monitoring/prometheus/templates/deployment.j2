@@ -21,6 +21,8 @@ spec:
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
+            - "--web.external-url=http://personal.omnireborn.io/prometheus/"
+            - "--web.route-prefix=/"
           ports:
             - containerPort: 9090
           volumeMounts:

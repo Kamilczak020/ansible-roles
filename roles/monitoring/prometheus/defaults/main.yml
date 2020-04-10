@@ -8,3 +8,5 @@ prometheus_image: prom/prometheus:v2.17.1
 
 # Node port on which the prometheus dashboard is exposed
 prometheus_port: 30000
+
+prometheus_host: personal.omnireborn.io

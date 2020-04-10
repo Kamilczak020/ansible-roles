@@ -25,3 +25,37 @@
   k8s:
     state: present
     definition: "{{ lookup('template', 'service.j2') }}"
+
+- name: Generate password using htpasswd
+  become: yes
+  become_user: "{{ system_user }}"
+  htpasswd:
+    path: /tmp/prometheus-auth
+    name: "{{ prometheus_auth.username }}"
+    password: "{{ prometheus_auth.password }}"
+
+- name: Read htpasswd to a variable
+  become: yes
+  become_user: "{{ system_user }}"
+  shell: cat /tmp/prometheus-auth
+  register: prometheus_htpasswd_output
+
+- name: Set htpasswd contents to a fact
+  become: yes
+  become_user: "{{ system_user }}"
+  set_fact:
+    prometheus_htpasswd: "{{ prometheus_htpasswd_output.stdout }}"
+
+- name: Deploy secret
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'secret.j2') }}"
+
+- name: Create ingress
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'ingress.j2') }}"

@@ -26,6 +26,8 @@
       tags: role-monitoring-grafana
     - role: networking/nginx-ingress
       tags: role-networking-nginx-ingress
+    - role: networking/cert-manager
+      tags: role-networking-cert-manager
     - role: kafka
       tags: role-kafka
 

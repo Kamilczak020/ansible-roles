@@ -11,3 +11,10 @@
   k8s:
     state: present
     definition: "{{ lookup('template', 'deployment.yml') }}"
+
+- name: Create letsencrypt issuer
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'issuer.yml') }}"

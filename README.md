@@ -6,13 +6,14 @@ These roles assume you are running Ubuntu but should work for most distributions
 These roles assume your hosts are split into `masters` and `workers`. If that does not hold true, adjust `setup.yml` accordingly.
 
 Featuring:
-- [x] Base server setup [config_system]
-- [x] Securing the system [secure_system]
-- [x] Installing and configuring Docker, using docker-ce [docker]
-- [x] Installing openshift
-- [x] Setting up Kubernetes cluster and control plane [kubernetes/masters]
-- [x] Joining kubernetes cluster from workers [kubernetes/workers]
-- [x] Deploying Gitlab specific runners [gitlab]
-- [x] Setting up prometheus for tracking Kubernetes stats [monitoring/prometheus]
-- [x] More metrics through `kube-state-metrics` [monitoring/kube-state-metrics]
-- [x] A grafana dashboard for monitoring [monitoring/grafana]
+- [x] [Base system setup & configuration](./system)
+- [x] [Installing and configuring Docker](./docker)
+- [x] [Installing and configuring Kubernetes](./kubernetes)
+- [x] [Networking utilities](./networking)
+- [x] [Monitoring tools](./monitoring)
+- [x] [Databases and their clusters](./database)
+- [x] [Kafka cluster](./kafka)
+- [x] [Specific Gitlab runners](./gitlab)
+- [x] [Discord bots and applications](./discord)
+- [x] [Scaleway CSI](./scaleway-csi)
+- [x] [Personal blog deployment](./blog)

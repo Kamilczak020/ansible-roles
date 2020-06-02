@@ -1,0 +1,19 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: pg-acid-cluster
+  namespace: postgres
+spec:
+  teamId: "acid"
+  volume:
+    size: 40Gi
+    storageClass: "scw-bssd"
+  numberOfInstances: 2
+  users:
+    postgres-admin:  # database owner
+    - superuser
+    - createdb
+  databases:
+    postgres: postgres-admin  # dbname: owner
+  postgresql:
+    version: "12"

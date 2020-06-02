@@ -1,0 +1,41 @@
+- name: Create namespace
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Create secrets
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'secrets.yml') }}"
+
+- name: Create bot deployment
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'deployment-bot.yml') }}"
+
+- name: Create web deployment
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', 'deployment-web.yml') }}"
+
+- name: Create service
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', 'service.yml') }}"
+
+- name: Create ingress
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', 'ingress.yml') }}"

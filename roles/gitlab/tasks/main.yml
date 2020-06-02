@@ -10,7 +10,7 @@
   become_user: "{{ system_user }}"
   k8s:
     state: present
-    definition: "{{ lookup('template', 'rbac.j2') }}"
+    definition: "{{ lookup('template', 'rbac.yml') }}"
 
 - name: Create token
   become: yes
@@ -33,9 +33,9 @@
     state: present
     definition: "{{ lookup('template', 'configmap.j2') }}"
 
-- name: Create statefulset
+- name: Create statefulset for omni runner
   become: yes
   become_user: "{{ system_user }}"
   k8s:
     state: present
-    definition: "{{ lookup('template', 'statefulset.j2') }}"
+    definition: "{{ lookup('template', 'statefulset-omni.yml') }}"

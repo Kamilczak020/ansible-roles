@@ -1,0 +1,13 @@
+- name: Patch metrics config
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('file', 'metrics-config.yml') }}"
+
+- name: Patch jmx exporter
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('file', 'jmx-exporter-patch.yml') }}"

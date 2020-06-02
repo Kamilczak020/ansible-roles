@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: discord-rss-web
+  namespace: {{ drss.namespace }}
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/port:   '3000'
+spec:
+  selector: 
+    app: discord-rss-web
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      

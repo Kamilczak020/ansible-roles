@@ -1,0 +1,12 @@
+drss:
+  hostname: discord-rss.omnireborn.io
+  namespace: discord-rss
+  database:
+    port: 27017
+    fqdn: 
+      - mongo-db-0.mongo-db.mongodb.svc.cluster.local
+      - mongo-db-1.mongo-db.mongodb.svc.cluster.local
+      - mongo-db-2.mongo-db.mongodb.svc.cluster.local
+  redis:
+    port: 6379
+    fqdn: redis-cluster.redis.svc.cluster.local

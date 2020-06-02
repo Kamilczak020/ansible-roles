@@ -1,0 +1,27 @@
+- name: Create namespace
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'namespace.yml') }}"
+
+- name: Create statefulset
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'statefulset.yml') }}"
+
+- name: Create service
+  become: yes
+  become_user: "{{ system_user }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', 'service.yml') }}"
+
+- name: Configure ufw
+  become: yes
+  ufw:
+    rule: allow
+    port: 5432
+    proto: tcp

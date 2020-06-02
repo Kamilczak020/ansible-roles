@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-rss-bot
+  namespace: "{{ drss.namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord-rss-bot
+  template:
+    metadata:
+      labels:
+        app: discord-rss-bot
+    spec:
+      containers:
+      - name: discord-rss-bot
+        image: synzen/discord.rss
+        imagePullPolicy: Always
+        env:
+        - name: DRSS_START
+          value: bot
+        - name: DRSS_DATABASE_URI
+          value: "mongodb://{{ drss_secrets.database.username }}:{{ drss_secrets.database.password }}@{{ drss.database.fqdn | join(',') }}:{{ drss.database.port }}/?replSet=myRepl"
+        - name: DRSS_BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: drss-secrets
+              key: discord-token

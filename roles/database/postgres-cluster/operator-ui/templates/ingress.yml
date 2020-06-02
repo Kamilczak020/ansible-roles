@@ -1,0 +1,23 @@
+apiVersion: "networking.k8s.io/v1beta1"
+kind: "Ingress"
+metadata:
+  name: "postgres-operator-ui"
+  namespace: "postgres"
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  labels:
+    application: "postgres-operator-ui"
+spec:
+  tls:
+    - hosts:
+        - codemagnifique.com
+      secretName: postgres-codemagnifique-tls
+  rules:
+    - host: "pg.codemagnifique.com"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: "postgres-operator-ui"
+              servicePort: 80

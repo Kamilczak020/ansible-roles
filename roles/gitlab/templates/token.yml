@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitlab-ci-token
+  namespace: {{ gitlab_runner_namespace }}
+  labels:
+    app: gitlab-ci-runner
+data:
+  gitlab-ci-token-omni: {{ gitlab_omnibot_ci_token | string | b64encode }}
+  gitlab-ci-token-blog: {{ gitlab_blog_ci_token | string | b64encode }}

@@ -1,12 +1,12 @@
 - hosts: all
   roles:
-    - role: config_system
+    - role: system/config-system
       tags: role-config-system
-    - role: secure_system
+    - role: system/secure-system
       tags: role-secure-system
     - role: docker
       tags: role-docker
-    - role: openshift
+    - role: system/openshift
       tags: role-openshift
 
 - hosts: masters
@@ -20,6 +20,8 @@
       tags: role-gitlab
     - role: monitoring/prometheus
       tags: role-monitoring-prometheus
+    - role: monitoring/prometheus-kafka
+      tags: role-monitoring-prometheus-kafka
     - role: monitoring/kube-state-metrics
       tags: role-monitoring-kube-state-metrics
     - role: monitoring/grafana
@@ -30,6 +32,22 @@
       tags: role-networking-cert-manager
     - role: kafka
       tags: role-kafka
+    - role: database/postgres
+      tags: role-postgres
+    - role: database/postgres-cluster/postgres-operator
+      tags: role-postgres-cluster-operator
+    - role: database/postgres-cluster/operator-ui
+      tags: role-postgres-cluster-ui
+    - role: database/mongodb
+      tags: role-mongodb
+    - role: database/redis
+      tags: role-redis
+    - role: discord/omnibot
+      tags: role-omnibot
+    - role: discord/discord-rss
+      tags: role-discord-rss
+    - role: blog
+      tags: role-blog
 
 - hosts: workers
   roles:

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discord-rss-web
+  namespace: "{{ drss.namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discord-rss-web
+  template:
+    metadata:
+      labels:
+        app: discord-rss-web
+    spec:
+      containers:
+      - name: discord-rss-web
+        image: synzen/discord.rss
+        imagePullPolicy: Always
+        ports:
+        - name: http 
+          containerPort: 8081
+        env:
+        - name: DRSS_START
+          value: web
+        - name: DRSSWEB_HTTP_TRUSTPROXY
+          value: 'true'
+        - name: DRSSWEB_DATABASE_REDIS
+          value: "redis://{{ drss.redis.fqdn }}:{{ drss.redis.port }}"
+        - name: DRSSWEB_DATABASE_URI
+          value: "mongodb://{{ drss_secrets.database.username }}:{{ drss_secrets.database.password }}@{{ drss.database.fqdn | join(',') }}:{{ drss.database.port }}/?replSet=myRepl"
+        - name: DRSSWEB_BOT_REDIRECTURI
+          value: "https://{{ drss.hostname }}/authorize"
+        - name: DRSSWEB_BOT_CLIENTID
+          valueFrom:
+            secretKeyRef:
+              name: drss-secrets
+              key: discord-client-id
+        - name: DRSSWEB_BOT_CLIENTSECRET
+          valueFrom:
+            secretKeyRef:
+              name: drss-secrets
+              key: discord-client-secret
+        - name: DRSSWEB_BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: drss-secrets
+              key: discord-token

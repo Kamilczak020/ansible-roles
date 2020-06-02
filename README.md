@@ -3,17 +3,39 @@
 A collection of useful ansible roles for setting up server things of all kinds.
 These roles assume you are running Ubuntu but should work for most distributions, with possible minor changes required for the system setup and securing roles.
 
+Many of the roles are highly configurable through data in `defaults` and `vars`. For specific use-cases, you will have to edit the manifests.
+
+### Note
+
 These roles assume your hosts are split into `masters` and `workers`. If that does not hold true, adjust `setup.yml` accordingly.
 
-Featuring:
-- [x] [Base system setup & configuration](./system)
-- [x] [Installing and configuring Docker](./docker)
-- [x] [Installing and configuring Kubernetes](./kubernetes)
-- [x] [Networking utilities](./networking)
-- [x] [Monitoring tools](./monitoring)
-- [x] [Databases and their clusters](./database)
-- [x] [Kafka cluster](./kafka)
-- [x] [Specific Gitlab runners](./gitlab)
-- [x] [Discord bots and applications](./discord)
-- [x] [Scaleway CSI](./scaleway-csi)
-- [x] [Personal blog deployment](./blog)
+## Table of contents
+- [Base system setup & configuration](./roles/system)
+  - [Configure System](./roles/system/config-system)
+  - [Secure System](./roles/system/secure-system)
+  - [Install openshift](./roles/system/openshift)
+- [Installing and configuring Docker](./roles/docker)
+- [Installing and configuring Kubernetes](./roles/kubernetes)
+  - [Master Nodes](./roles/kubernetes/masters)
+  - [Worker Nodes](./roles/kubernetes/workers)
+- [Networking utilities](./roles/networking)
+  - [Nginx Ingress](./roles/networking/nginx-ingress)
+  - [Letsencrypt Cert Manager](./roles/networking/cert-manager)
+  - [Peervpn](./roles/networking/peervpn)
+- [Monitoring tools](./roles/monitoring)
+  - [Prometheus](./roles/monitoring/prometheus)
+  - [Prometheus Kafka Plugin](./roles/monitoring/prometheus-kafka)
+  - [Kube State Metrics](./roles/monitoring/kube-state-metrics)
+  - [Grafana](./roles/monitoring/grafana)
+- [Databases and their clusters](./roles/database)
+  - [Postgres](./roles/database/postgres)
+  - [Postgres Cluster + Operator](./roles/database/postgres-cluster)
+  - [Redis](./roles/database/redis)
+  - [Mongodb Cluster](./roles/database/mongodb)
+- [Kafka cluster](./roles/kafka)
+- [Specific Gitlab runners](./roles/gitlab)
+- [Discord bots and applications](./roles/discord)
+  - [Discord RSS](./roles/discord/discord-rss)
+  - [Omnibot](./roles/discord/omnibot)
+- [Scaleway CSI](./roles/scaleway-csi)
+- [Personal blog deployment](./roles/blog)

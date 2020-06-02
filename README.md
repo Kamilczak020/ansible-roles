@@ -39,3 +39,17 @@ These roles assume your hosts are split into `masters` and `workers`. If that do
   - [Omnibot](./roles/discord/omnibot)
 - [Scaleway CSI](./roles/scaleway-csi)
 - [Personal blog deployment](./roles/blog)
+
+## How to use
+
+1. Clone the repository: 
+```
+git clone https://github.com/Kamilczak020/ansible-roles.git
+```
+
+2. Adjust `group_vars` and specific role variables using `ansible-vault`.
+
+3. Run a specific playbook using it's tag:
+```
+ansible-playbook setup.yml --tags=your-tags-here --ask-vault-password
+```

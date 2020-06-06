@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-oauth2-provider
+  namespace: "{{ oauth.namespace }}"
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  labels:
+    app: oauth2-proxy
+spec:
+  tls:
+  - hosts:
+    - "{{ oauth.auth_domain }}"
+    secretName: oauth-codemagnifique-tls
+  rules:
+  - host: "{{ oauth.auth_domain }}"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: "oauth2-proxy"
+          servicePort: 4180

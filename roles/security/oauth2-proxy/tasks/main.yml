@@ -5,12 +5,12 @@
     state: present
     definition: "{{ lookup('template', 'namespace.yml') }}"
 
-- name: Create CRD
+- name: Create secrets
   become: yes
   become_user: "{{ system_user }}"
   k8s:
     state: present
-    definition: "{{ lookup('template', 'crd.yml') }}"
+    definition: "{{ lookup('template', 'secrets.yml') }}"
 
 - name: Create configmap
   become: yes
@@ -19,27 +19,13 @@
     state: present
     definition: "{{ lookup('template', 'configmap.yml') }}"
 
-- name: Create rbac
+
+- name: Create deployment
   become: yes
   become_user: "{{ system_user }}"
   k8s:
     state: present
-    definition: "{{ lookup('template', 'rbac.yml') }}"
-
-- name: Create operator
-  become: yes
-  become_user: "{{ system_user }}"
-  k8s:
-    state: present
-    definition: "{{ lookup('template', 'operator.yml') }}"
-
-- name: Deploy operator configuration
-  become: yes
-  become_user: "{{ system_user }}"
-  k8s:
-    state: present
-    definition: "{{ lookup('template', 'operator-configuration.yml') }}"
-
+    definition: "{{ lookup('template', 'deployment.yml') }}"
 
 - name: Create service
   become: yes
@@ -48,9 +34,9 @@
     state: present
     definition: "{{ lookup('template', 'service.yml') }}"
 
-- name: Deploy cluster
+- name: Create ingress
   become: yes
   become_user: "{{ system_user }}"
   k8s:
     state: present
-    definition: "{{ lookup('template', 'deployment.yml') }}"
+    definition: "{{ lookup('template', 'ingress.yml') }}"

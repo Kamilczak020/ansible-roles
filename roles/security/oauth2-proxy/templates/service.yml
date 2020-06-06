@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth2-proxy
+  namespace: {{ oauth.namespace }}
+spec:
+  selector: 
+    app: oauth2-proxy
+  ports:
+    - protocol: TCP
+      port: 4180
+      protocol: TCP
+      targetPort: 4180
+      

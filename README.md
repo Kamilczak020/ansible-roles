@@ -27,6 +27,8 @@ These roles assume your hosts are split into `masters` and `workers`. If that do
   - [Prometheus Kafka Plugin](./roles/monitoring/prometheus-kafka)
   - [Kube State Metrics](./roles/monitoring/kube-state-metrics)
   - [Grafana](./roles/monitoring/grafana)
+- [Security tools](./roles/security)
+  - [OAuth2 Proxy](./roles/security/oauth2-proxy)
 - [Databases and their clusters](./roles/database)
   - [Postgres](./roles/database/postgres)
   - [Postgres Cluster + Operator](./roles/database/postgres-cluster)

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-proxy
+  namespace: "{{ oauth.namespace }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+    spec:
+      containers:
+      - name: oauth-proxy
+        image: quay.io/oauth2-proxy/oauth2-proxy:v5.1.1
+        ports:
+          - name: oauth2-proxy
+            containerPort: 4180
+        args:
+          - "--config=/app/config/proxy-config.cfg"
+          - "--cookie-domain=.personal.codemagnifique.com"
+          - "--whitelist-domain=.personal.codemagnifique.com"
+          - "--upstream=file:///dev/null"
+        env:
+        - name: OAUTH2_PROXY_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-secrets
+              key: cookie-secret
+        - name: OAUTH2_PROXY_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-secrets
+              key: client-id
+        - name: OAUTH2_PROXY_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth2-proxy-secrets
+              key: client-secret
+        volumeMounts:
+          - name: configs
+            mountPath: /app/config/proxy-users.cfg
+            subPath: proxy-users.cfg
+          - name: configs
+            mountPath: /app/config/proxy-config.cfg
+            subPath: proxy-config.cfg
+      volumes:
+      - name: configs
+        configMap:
+          name: oauth2-proxy-config
+          items:
+            - key: proxy-users.cfg
+              path: proxy-users.cfg
+            - key: proxy-config.cfg
+              path: proxy-config.cfg

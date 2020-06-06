@@ -30,6 +30,8 @@
       tags: role-networking-nginx-ingress
     - role: networking/cert-manager
       tags: role-networking-cert-manager
+    - role: security/oauth2-proxy
+      tags: role-security-oauth2-proxy
     - role: kafka
       tags: role-kafka
     - role: database/postgres

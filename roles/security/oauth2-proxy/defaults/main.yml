@@ -1,0 +1,8 @@
+oauth:
+  namespace: oauth
+  provider: github
+  auth_domain: "auth.personal.codemagnifique.com"
+  cookie_domain: ".personal.codemagnifique.com"
+  whitelist_domain: ".personal.codemagnifique.com"
+  users:
+    - kamilczak020@gmail.com

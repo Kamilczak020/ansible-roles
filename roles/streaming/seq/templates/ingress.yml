@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-seq
+  namespace: "{{ seq.namespace }}"
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  labels:
+    app: seq
+spec:
+  tls:
+  - hosts:
+    - "{{ seq.host }}"
+    secretName: seq-omnireborn-tls
+  rules:
+  - host: "{{ seq.host }}"
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: seq-api
+          servicePort: 80

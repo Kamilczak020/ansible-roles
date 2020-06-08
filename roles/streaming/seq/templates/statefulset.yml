@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: seq
+  namespace: "{{ seq.namespace }}"
+spec:
+  selector:
+    matchLabels:
+      app: seq
+  serviceName: seq
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: seq
+    spec:
+      containers:
+      - name: seq
+        image: datalust/seq:latest
+        resources:
+          limits:
+            memory: "1Gi"
+        ports:
+        - name: seq-api
+          containerPort: 80
+        - name: seq-ingestion
+          containerPort: 5431
+        env:
+        - name: ACCEPT_EULA
+          value: Y
+        - name: BASE_URI
+          value: "https://{{ seq.host }}/"
+        volumeMounts:
+        - name: data
+          mountPath: /data
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "scw-bssd"
+      resources:
+        requests:
+          storage: 20Gi

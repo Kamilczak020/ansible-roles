@@ -32,8 +32,10 @@
       tags: role-networking-cert-manager
     - role: security/oauth2-proxy
       tags: role-security-oauth2-proxy
-    - role: kafka
-      tags: role-kafka
+    - role: streaming/kafka
+      tags: role-streaming-kafka
+    - role: streaming/seq
+      tags: role-streaming-seq
     - role: database/postgres
       tags: role-postgres
     - role: database/postgres-cluster/postgres-operator
